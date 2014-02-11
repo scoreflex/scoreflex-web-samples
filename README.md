@@ -1,4 +1,4 @@
-scoreflex-web-samples
+Scoreflex Web Samples
 =====================
 
 Scoreflex Web Samples
