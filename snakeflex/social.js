@@ -40,7 +40,7 @@ Game.Social = function(gameplay) {
 
   /* WEB VIEW : Display leaderboard */
   var showLeaderboard = function() {
-    ScoreflexSDK.Leaderboards.get(leaderboardId).show();
+    ScoreflexSDK.Leaderboards.get(leaderboardId).show({geoId:"worldwide"});
   };
 
   /* WEB VIEW : Display rankbox */
