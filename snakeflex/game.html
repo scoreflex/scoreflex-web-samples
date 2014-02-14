@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SnakeFlex</title>
+  <link href="./SDK/style/webclient.css" type="text/css" rel="stylesheet">
+  <link href="./game.css" type="text/css" rel="stylesheet">
+  <meta id="metaSFX" name="metaSFX" content="NzVmNGVhMDYyMzA5MGUwMzIxYzRiMGY0NjQ1ZTFiYThjNGZlNzU4OXwxODYxNDBhNzFiNzFjNjBlMDNiMjhiZTMyYmUzY2ZiNDU1YjQzMmY2Y2I5YWZiMTk2NDk2ODhmMjdmZTYxYzli" />
+</head>
+<body>
+
+<div id="game">
+  <div id="scenes">
+    <div id="scene_menu" class="scene">
+      <div><button id="startSolo"      class="red btn-HL-red">Solo Training</button></div>
+      <div><button id="startChallenge" class="red btn-HL-red">Challenge 1 vs 1</button></div>
+      <div class="rules">
+        <span class="rules_title">SnakeFlex Rules</span>
+        <ul>
+          <li>Control the snake with keyboard arrows <kbd>&#8592;</kbd> <kbd>&#8593;</kbd> <kbd>&#8594;</kbd> <kbd>&#8595;</kbd></li>
+          <li>Eat as many berries as you can</li>
+          <li>You have 30 seconds</li>
+        </ul>
+      </div>
+      <br />
+      <div><button id="showLeaderboard" class="red btn-HL-red">Leaderboards</button></div>
+    </div>
+    <div id="scene_game" style="display:none;" class="scene">
+      <div class="game_hub">
+        <div class="game_hub_time"><span class="game_hub_box">Time: <span id="game_time">30</span></span></div>
+        <div class="game_hub_score"><span class="game_hub_box">Score: <span id="game_score">0</span></span></div>
+      </div>
+      <canvas id="game_canvas"></canvas>
+    </div>
+    <div id="scene_score" style="display:none;" class="scene">
+      <div class="score_hub">
+        <span class="score_hub_box">Well done! You scored <span id="score_hub_value">0</span>!</span>
+      </div>
+      <div class="score_actions">
+        <button id="score_restart" class="red">Back to menu</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="./SDK/libs/CryptoJS/rollups/hmac-sha1.js"></script>
+<script type="text/javascript" src="./SDK/libs/CryptoJS/components/enc-base64-min.js"></script>
+<script type="text/javascript" src="./SDK/libs/Json/json2.js"></script>
+<script type="text/javascript" src="./SDK/scoreflex.js"></script>
+<script type="text/javascript" src="./seedrandom/seedrandom.js"></script>
+<script type="text/javascript" src="./game.js"></script>
+<script type="text/javascript" src="./social.js"></script>
+<script type="text/javascript" src="./gameplay.js"></script>
+<script type="text/javascript" src="./boot.js"></script>
+</body>
+</html>
