@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>RandGame</title>
-  <link href="./scoreflexSDK/style/webclient.css" type="text/css" rel="stylesheet">
+  <title>Random Score</title>
+  <link href="./SDK/style/webclient.css" type="text/css" rel="stylesheet">
   <link href="./game.css" type="text/css" rel="stylesheet">
 
 </head>
@@ -34,7 +34,6 @@
   <div id="debug_actions">
     <div class="actions_generic">
       DEBUG actions<br />
-      <button id="actionPing" class="gray">Ping</button>
       <button id="actionGetPlayer" class="gray">Get profile (REST)</button>
     </div>
     <div class="actions_challenge">
@@ -47,10 +46,13 @@
   </div>
 </div>
 
-<script type="text/javascript" src="./scoreflexSDK/libs/CryptoJS/rollups/hmac-sha1.js"></script>
-<script type="text/javascript" src="./scoreflexSDK/libs/CryptoJS/components/enc-base64-min.js"></script>
-<script type="text/javascript" src="./scoreflexSDK/libs/Json/json2.js"></script>
-<script type="text/javascript" src="./scoreflexSDK/scoreflexSDK.js"></script>
+<script type="text/javascript" src="./SDK/libs/CryptoJS/rollups/hmac-sha1.js"></script>
+<script type="text/javascript" src="./SDK/libs/CryptoJS/components/enc-base64-min.js"></script>
+<script type="text/javascript" src="./SDK/libs/Json/json2.js"></script>
+<script type="text/javascript" src="./SDK/scoreflex.js"></script>
 <script type="text/javascript" src="./game.js"></script>
+<script type="text/javascript" src="./social.js"></script>
+<script type="text/javascript" src="./gameplay.js"></script>
+<script type="text/javascript" src="./boot.js"></script>
 </body>
 </html>

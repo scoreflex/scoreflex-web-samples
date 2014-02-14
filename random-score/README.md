@@ -21,6 +21,7 @@ The Random-score javascript sample focuses on the following Scoreflex SDK usages
 * play a simple challenge (use 2 different browsers to play a challenge).
     - catch events to play the game in "challenge mode"
     - send score for a challenge
+    - example of a 3 turns challenge (a player waits for the other player to have make their turn)
     
 This sample shows no real gameplay. When pushed, a button just generate a random
 score. Thus, you can study the source to understand the use of the Scoreflex
