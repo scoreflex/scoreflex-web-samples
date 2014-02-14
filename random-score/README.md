@@ -7,8 +7,8 @@ To use this sample you have to:
 - Create a game -or modify an existing one- (check the **Web** option in the list of available platforms).
 - Configure a **leaderboard** and a **challenge** for your game (see configurations below).
 - Checkout the sample files and copy the [Scoreflex Javascript SDK](https://github.com/scoreflex/scoreflex-javascript-sdk "Scoreflex Javascript SDK on GitHub")
-to the *random-score/scoreflexSDK/* folder.
-- Edit the *game.js* file and update the `clientId` and `clientSecret` variables
+to the `SDK/` folder (sample tested with SDK v1.1.0.0)
+- Edit the *social.js* file and update the `clientId` and `clientSecret` variables
 with your game's identifiers.
 
 ------
