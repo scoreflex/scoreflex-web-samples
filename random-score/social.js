@@ -2,8 +2,8 @@ Game.Social = function(gameplay) {
   /* Scoreflex identifiers */
   // FILL THIS VARIABLES
   var gameName = 'myGameName';
-  var clientId = 'eeb414c09fa4c874afe900ec3f13c47c1b1e76f3';
-  var clientSecret = 'ae58492175e3aaf759b3043f4077bfe23c862021bf364754a69ebf97b74ac99e';
+  var clientId = '<yourOwnClientIdHere>';
+  var clientSecret = '<yourOwnClientSecretHere>';
   var leaderboardId = 'BestScores';
 
   var useSandbox = true;

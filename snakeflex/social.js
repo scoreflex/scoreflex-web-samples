@@ -1,7 +1,7 @@
 Game.Social = function(gameplay) {
   // FILL THIS VARIABLES
-  var clientId = "72d5e76eadfa739fb37ed87cec11502bd360aac1";
-  var clientSecret = "96fdc40e3613ca63c952bacd34ff0970eb15497a42ca91002d10c80e0d4ac83b";
+  var clientId = "<yourOwnClientIdHere>";
+  var clientSecret = "<yourOwnClientSecretHere>";
   var useSandbox = true;
 
   var leaderboardId = "highscores";
