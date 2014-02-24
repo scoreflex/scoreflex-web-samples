@@ -1,0 +1,65 @@
+HTML,
+BODY {
+  margin:0;
+  padding:0;
+}
+BODY {
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+#infoDiv {
+  margin:       1em;
+  padding-left: 0.5em;
+  border:       1px solid #000;
+  width:        750px;
+  height:       600px;
+  overflow-y:   scroll;
+  line-height:  80%;
+}
+#infoDiv .infoDate {
+  display:      inline;
+  font-size:    13px;
+  margin-right: 5px;
+}
+#infoDiv .infoTxt {
+  display: inline;
+}
+#infoDiv .infoTxt PRE {
+  display: inline;
+  margin:  0;
+}
+
+#restartDiv {
+  margin:     1em;
+  width:      750px;
+  text-align: center;
+}
+
+BUTTON {
+  padding:0.3em 1em;
+  font-size:1em;
+  font-weight:bold;
+  border-radius:5px;
+  box-shadow:0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin:0.2em;
+  cursor:pointer;
+  border:1px solid transparent;
+}
+BUTTON.enabled {
+  background-color: #6E7273;
+  border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.25);
+  color: #FFFFFF;
+  text-shadow: 0 -1px 0 #505455;
+}
+
+BUTTON.disabled {
+  border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.25);
+  color: #FFFFFF;
+}
+
+.scoreflexWebClient_full {
+  height:   800px;
+  position: absolute;
+  right:    0;
+  top:      0;
+  width:    480px;
