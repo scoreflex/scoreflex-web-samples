@@ -154,7 +154,7 @@ var myGame = new (function MyGame() {
                 logInfo("Scoreflex SDK initialization failed");
                 restartButtonEl.className = "enabled";
                 restartButtonEl.onclick   = function() { initializeSDK(); };
-                stopButtonEl.className    = "disable";
+                stopButtonEl.className    = "disabled";
                 stopButtonEl.onclick      = null;
             }
         }
@@ -221,7 +221,7 @@ var myGame = new (function MyGame() {
             }
             restartButtonEl.className = "enabled";
             restartButtonEl.onclick   = function() { initializeSDK(); };
-            stopButtonEl.className    = "disable";
+            stopButtonEl.className    = "disabled";
             stopButtonEl.onclick      = null;
         },
 
