@@ -28,6 +28,16 @@ Game.Social = function(gameplay) {
     else if (name === 'challenge') {
       var challenge = eventData.challenge;
       gameplay.loadChallenge(challenge);
+      ScoreflexSDK.Challenges.watchUpdates(challenge);
+    }
+    else if (name === 'challengeNew') {
+      var challenge = eventData.challenge;
+      console.log('challenge new');
+      console.dir(challenge.getLocalDetails());
+    }
+    else if (name === 'challengeUpdate') {
+      var challenge = eventData.challenge;
+      console.dir(challenge.getLocalDetails());
     }
   };
   Game.Common.listenEvent(window, 'ScoreflexEvent', sfxEventHandler);
@@ -95,10 +105,25 @@ Game.Social = function(gameplay) {
     });
   };
 
+  /* CHALLENGE : start watching for new challenge */
+  var watchChallengeNew = function() {
+    ScoreflexSDK.Challenges.watchAllNew(["invitation", "yourTurn"], {configIds:['attemptSum3']});
+  };
+
+  /* CHALLENGE : stop watching for new challenge */
+  var unwatchChallengeNew = function() {
+    ScoreflexSDK.Challenges.unwatchAllNew();
+  };
+
   /* WEB VIEW : hide */
   var hideWebView = function() {
     ScoreflexSDK.WebClient.close();
   };
+
+
+  // -- run now
+  /* CHALLENGE : being aware of new challenge */
+  watchChallengeNew();
 
   return {
     showLeaderboard:showLeaderboard,
@@ -110,6 +135,8 @@ Game.Social = function(gameplay) {
     showChallenge:showChallenge,
     getChallengeDetails:getChallengeDetails,
     sendChallengeScore:sendChallengeScore,
+    watchChallengeNew:watchChallengeNew,
+    unwatchChallengeNew:unwatchChallengeNew,
 
     getCurrentPlayer:getCurrentPlayer,
     showCurrentPlayer:showCurrentPlayer,
