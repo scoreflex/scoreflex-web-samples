@@ -1,0 +1,191 @@
+HTML,
+BODY {
+  margin:0;
+  padding:0;
+}
+BODY {
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.hidden {
+  display: none;
+}
+
+#error {
+  position     : absolute;
+  bottom       : 20px;
+  margin-left  : 20px;
+  width        : 360px;
+  color        : red;
+  font-weight  : bold;
+}
+
+#menu {
+  height          : 600px;
+  position        : absolute;
+  left            : 10px;
+  top             : 10px;
+  width           : 400px;
+  border          : 1px solid black;
+  text-align      : center;
+  background-color: #005000;
+}
+
+#menu .title {
+  color         : red;
+  font-weight   : bold;
+  font-size     : 1.6em;
+  padding-bottom: 10%;
+  margin-top    : 20px;
+}
+
+#menu .logo {
+  position   : relative;
+  padding-top: 100px;
+}
+
+#menu .logoCard1 {
+  left     : 145px;
+  position : absolute;
+  width    : 100px;
+  transform: rotate(-15deg);
+  -ms-transform:rotate(-15deg);
+  -webkit-transform:rotate(-15deg);
+}
+
+#menu .logoCard2 {
+  left     : 160px;
+  position : absolute;
+  width    : 100px;
+}
+
+#waiting {
+  position        : absolute;
+  top             : 75px;
+  background-color: #005000;
+  color           : #FFFFFF;
+  font-size       : 2em;
+  font-weight     : bold;
+  width           : 400px;
+  padding-top     : 75px;
+}
+
+#table {
+  height          : 600px;
+  position        : absolute;
+  left            : 10px;
+  top             : 10px;
+  width           : 400px;
+  background-color: #005000;
+  border          : 1px solid #000000;
+}
+
+#table .onTop {
+  position: absolute;
+  top     : 0;
+  width   : 100%;
+}
+
+#table .onBottom {
+  position: absolute;
+  bottom  : 0;
+  width   : 100%;
+}
+
+#table .player, #table .opponent {
+  height    : 225px;
+  text-align: center;
+  margin    : 10px;
+  position  : relative;
+}
+
+#table .avatar IMG {
+  width : 64px;
+  height: 64px;
+}
+
+#table .hand {
+  text-align: center;
+}
+
+#table .handValue {
+  position  : absolute;;
+  left      : 10px;
+  text-align: center;
+  color      : white;
+  font-weight: bold;
+  font-size  : 2em;
+}
+#opponentHandValue {
+  top       : 225px;
+}
+#playerHandValue {
+  bottom    : 225px;
+}
+
+#table .score {
+  height     : 60px;
+  text-align : center;
+  color      : white;
+  font-weight: bold;
+  font-size  : 2em;
+}
+
+#countdown {
+  position   : absolute;
+  bottom     : 10px;
+  left       : 10px;
+  font-size  : 2em;
+  font-weight: bold;
+  color      : white;
+}
+
+#result {
+  position   : absolute;
+  height     : 60px;
+  width      : 400px;
+  text-align : center;
+  color      : white;
+  font-weight: bold;
+  font-size  : 2em;
+  top        : 296px;
+  left       : 0;
+  z-index    : 1
+}
+
+#gameAction {
+  padding-top : 10px;
+  height      : 40px;
+  text-align  : center;
+}
+
+.scoreflexWebClient_full {
+  height  : 600px;
+  position: absolute;
+  left    : 10px;
+  top     : 10px;
+  width   : 400px;
+}
+
+
+BUTTON {
+  padding      : 0.3em 1em;
+  font-size    : 0.7em;
+  font-weight  : bold;
+  border-radius: 5px;
+  box-shadow   : 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin       : 0.2em;
+  border       : 1px solid transparent;
+}
+BUTTON.enabled {
+  background-color: #6E7273;
+  border-color    : rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.25);
+  color           : #FFFFFF;
+  text-shadow     : 0 -1px 0 #505455;
+  cursor          : pointer;
+}
+
+BUTTON.disabled {
+  border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.35) rgba(0, 0, 0, 0.25);
+  color       : #FFFFFF;
+}
