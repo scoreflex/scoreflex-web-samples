@@ -1,0 +1,169 @@
+HTML,
+BODY {
+  margin:0;
+  padding:0;
+}
+BODY {
+  font-family     : 'SilkscreenNormal',Arial,sans-serif;
+  color           : white;
+  background-color: black;
+}
+
+.hidden {
+  display: none;
+}
+
+@font-face
+{
+  font-family: SilkscreenNormal;
+  src        : url(slkscr.ttf);
+}
+
+@font-face
+{
+  font-family: SilkscreenNormal;
+  src        : url(slkscrb.ttf);
+  font-weight: bold;
+}
+
+#logo {
+  text-align : center;
+  padding-top: 50px;
+}
+
+#title {
+  font-size  : 54px;
+  text-align : center;
+  padding-top: 50px;
+}
+
+#menu {
+  font-size  : 30px;
+  text-align : center;
+  padding-top: 25px;
+}
+#menu .disabled_item {
+  color: grey;
+}
+#menu .item {
+  cursor : pointer;
+  display: block;
+}
+#menu .item:hover {
+}
+#menu .item .selected,
+#menu .disabled_item .selected {
+  display: none;
+}
+#menu .item:hover .selected {
+  display: inline;
+  color  : red;
+}
+
+#msg {
+  font-size  : 54px;
+  text-align : center;
+  padding-top: 50px;
+}
+.error {
+  color: red;
+}
+
+CANVAS {
+  border  : 1px solid #000000;
+  left    : 5px;
+  position: absolute;
+  top     : 5px;
+}
+
+#scores {
+  opacity         :0.7;
+  font-family     : monospace;
+  font-size       : 13px;
+  background-color: #000000;
+  border          : 1px solid #744c19;
+  position        : absolute;
+  z-index         : 200;
+}
+#scores_header {
+  background-color: #744c19;
+  padding-bottom  : 3px;
+  padding-left    : 10px;
+  padding-top     : 3px;
+}
+#scores_labels {
+  padding-top   : 25px;
+  padding-bottom: 25px;
+}
+#scores_labels .color {
+    margin-left : 10px;
+    margin-right: 10px;
+    display     : inline-block;
+    width       : 5%;
+}
+#scores_labels .name {
+    display    : inline-block;
+    width      : 40%;
+}
+#scores_labels .frags {
+    display   : inline-block;
+    width     : 15%;
+    text-align: center;
+}
+#scores_labels .deaths {
+    display   : inline-block;
+    width     : 15%;
+    text-align: center;
+}
+#scores_labels .accuracy {
+    display   : inline-block;
+    width     : 15%;
+    text-align: center;
+}
+#scores_player {
+    font-size    : 11px;
+    color        : #e1ba5b;
+    margin-bottom: 1px;
+}
+#scores_player.me {
+    background-color: #e1ba5b;
+    color           : #ffffff;
+}
+#scores_player .color {
+    margin-left : 10px;
+    margin-right: 10px;
+    display     : inline-block;
+    width       : 5%;
+}
+#scores_player .name {
+    display    : inline-block;
+    width      : 40%;
+}
+#scores_player .frags {
+    display   : inline-block;
+    width     : 15%;
+    text-align: center;
+}
+#scores_player .deaths {
+    display   : inline-block;
+    width     : 15%;
+    text-align: center;
+}
+#scores_player .accuracy {
+    display   : inline-block;
+    width     : 15%;
+    text-align: center;
+}
+
+#minimap {
+  z-index: 100;
+}
+
+#viewport {
+  z-index: 1;
+}
+
+#players {
+  z-index: 2;
+}
+

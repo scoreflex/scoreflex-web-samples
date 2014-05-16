@@ -1,0 +1,23 @@
+<erl>
+out(Arg) ->
+    try
+        application:start(inets),
+        {ok, URL} = yaws_api:queryvar(Arg, "url"),
+        {Status, Response} = get_rooms(URL),
+        [{status, Status}, {content, "application/json", Response}]
+    catch
+        _:_ ->
+            [{status, 400}]
+    end.
+
+get_rooms(URL) ->
+    case httpc:request(get, {URL ++ "/rooms", []}, [],
+                       [{full_result, false}]) of
+        {ok,  {200, Body}} ->
+            {200, Body};
+        {ok, {Status, _}} ->
+            {Status, "{}"};
+        {error, Reason} ->
+            {500, "{}"}
+    end.
+</erl>

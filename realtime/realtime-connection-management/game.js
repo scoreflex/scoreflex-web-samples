@@ -4,8 +4,8 @@ var myGame = new (function MyGame() {
     /**********************************************************************/
     // FILL THESE VARIABLES
     var gameName     = 'Realtime connection management sample';
-    var clientId     = '...';
-    var clientSecret = '...';
+    var clientId     = '91ece54c54e2de541e90bc4ae425483877b3b9c9';
+    var clientSecret = '0e41ce0e918f8d7a96879fa7f58a3a2683d02b5387953de1a238e57b50cdf838';
     var useSandbox   = true;
 
 

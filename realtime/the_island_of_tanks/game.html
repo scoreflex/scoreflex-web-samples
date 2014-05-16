@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Island of Tanks - V1.0</title>
+    <link href="game.css" type="text/css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="logo">
+      <img src="img/tank_logo.png" />
+      Powered by <a href="http://www.scoreflex.com">Scoreflex</a>
+    </div>
+    <div id="title">The Island of Tanks</div>
+    <div id="menu" class="hidden"></div>
+    <div id="msg"></div>
+    <div id="scores" class="hidden">
+      <div id="scores_header">Scores</div>
+      <div id="scores_labels">
+        <span class="color"></span>
+        <span class="name">Players</span>
+        <span class="frags">Frags</span>
+        <span class="deaths">Deaths</span>
+        <span class="accuracy">Accuracy</span>
+      </div>
+      <div id="scores_players">
+      </div>
+    </div>
+
+    <canvas id="minimap"></canvas>
+    <canvas id="viewport"></canvas>
+    <canvas id="players"></canvas>
+
+    <script type="text/javascript" src="SDK/libs/CryptoJS/rollups/hmac-sha1.js"></script>
+    <script type="text/javascript" src="SDK/libs/CryptoJS/components/enc-base64-min.js"></script>
+    <script type="text/javascript" src="SDK/libs/Json/json2.js"></script>
+    <script type="text/javascript" src="SDK/libs/ProtoBuf/Long.js"></script>
+    <script type="text/javascript" src="SDK/libs/ProtoBuf/ByteBuffer.js"></script>
+    <script type="text/javascript" src="SDK/libs/ProtoBuf/ProtoBuf.js"></script>
+    <script type="text/javascript" src="SDK/scoreflex.js"></script>
+    <script type="text/javascript" src="SDK/scoreflexRealtime.js"></script>
+    <script type="text/javascript" src="ajax.js"></script>
+    <script type="text/javascript" src="misc.js"></script>
+    <script type="text/javascript" src="simplex.js"></script>
+    <script type="text/javascript" src="island.js"></script>
+    <script type="text/javascript" src="game.js"></script>
+  </body>
+</html>
