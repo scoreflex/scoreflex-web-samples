@@ -75,23 +75,23 @@ end
 
 function new_player(id)
    local x,y = new_player_position()
-   return {id = id,
-           x             = x,
-           y             = y,
-           u             = 0,
-           v             = 0,
-           speed         = 0,
-           tank_pos      = 0,
-           turret_pos    = 0,
-           shot_ttl      = 0,
-           shield        = tank_shield,
-           key_pressed   = 0,
-           respawn_ttl   = 0,
-           frags         = 0,
-           hits          = 0,
-           deaths        = 0,
-           shots         = 0,
-           killer        = nil}
+   return {id          = id,
+           x           = x,
+           y           = y,
+           u           = 0,
+           v           = 0,
+           speed       = 0,
+           tank_pos    = 0,
+           turret_pos  = 0,
+           shot_ttl    = 0,
+           shield      = tank_shield,
+           key_pressed = 0,
+           respawn_ttl = 0,
+           frags       = 0,
+           hits        = 0,
+           deaths      = 0,
+           shots       = 0,
+           killer      = nil}
 end
 
 function reset_player(player)
@@ -110,7 +110,6 @@ function reset_player(player)
 end
 
 function initialize(roomId, config)
-   reflex.loginfo("Initializing script for room " .. roomId .. "...")
    seed           = reflex.get_room_property("seed")
    match_duration = reflex.get_room_property("match_duration")
    SimplexNoise.init(seed)
@@ -148,16 +147,13 @@ function initialize(roomId, config)
 end
 
 function deinitialize()
-   reflex.loginfo("Deinitializing script")
 end
 
 function on_room_joined(playerId)
-   reflex.loginfo("Player " .. playerId .. " joined the room")
    players[playerId] = new_player(playerId)
 end
 
 function on_room_left(playerId)
-   reflex.loginfo("Player " .. playerId .. " left the room")
    local props = reflex.get_room_properties()
    for k,v in pairs(props) do
       if string.match(k, playerId) ~= nil then
@@ -223,7 +219,7 @@ function on_timeout(id, info)
                            payload  = payload})
 
       if info.ttl > 0 then
-         info.ttl = info.ttl - 1
+         info.ttl    = info.ttl - 1
          match_timer = reflex.set_timeout(info, 1000)
       else
          match_timer = nil
@@ -240,8 +236,6 @@ function move_players()
       if player.respawn_ttl > 0 then
          player.respawn_ttl = player.respawn_ttl - 1
       else
-
-
          if bit32.band(player.key_pressed, TANK_LEFT) == TANK_LEFT then
             if bit32.band(player.key_pressed, TANK_BOTTOM) == TANK_BOTTOM then
                player.tank_pos = (player.tank_pos + 1) % 32
@@ -323,7 +317,6 @@ end
 
 function check_tank_collisions(player)
    local d = 70/factor
-
    for id,opponent in pairs(players) do
       if id == player.id then
          return false
@@ -339,7 +332,6 @@ end
 
 function check_shell_hits(player)
    local d = 70/factor
-
    for id,shell in pairs(shells) do
       if shell.id ~= player.id then
          local a = math.sqrt(math.pow(player.x - shell.x, 2) + math.pow(player.y - shell.y, 2))
@@ -359,8 +351,6 @@ function on_tick()
    local payload = {}
    move_players()
    move_shells()
-
-   local start_time = reflex.get_mm_time()
 
    for id,player in pairs(players) do
       local b, opponent = check_tank_collisions(player)
@@ -406,8 +396,6 @@ function on_tick()
       end
    end
 
-   local t1 = reflex.get_mm_time()
-
    for id,player in pairs(players) do
       if player.shield <= 0 then
          payload["explosion_" .. id] = player.x .. "#" .. player.y .. "#" .. player.killer
@@ -424,8 +412,6 @@ function on_tick()
       payload["score_" .. id] = player.frags .. "#" .. player.deaths .. "#" .. player.hits .. "#" .. player.shots
    end
 
-   local t2 = reflex.get_mm_time()
-
    for id,shell in pairs(shells) do
       if shell.hit then
          payload["hit_" .. id] = shell.x .. "#" .. shell.y
@@ -438,22 +424,8 @@ function on_tick()
       end
    end
 
-   local t3 = reflex.get_mm_time()
-
    reflex.send_message({to       = nil,
                         tag      = 201,
                         reliable = false,
                         payload  = payload})
-
-   local end_time = reflex.get_mm_time()
-
-   if (end_time - start_time) > 10 then
-      reflex.loginfo(end_time - start_time, ":",
-                     t1 - start_time, "/",
-                     t2 - t1, "/",
-                     t3 - t2, "/",
-                     end_time - t3)
-   end
 end
-
-reflex.loginfo("my script is loaded!")
