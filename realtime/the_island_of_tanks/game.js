@@ -591,21 +591,27 @@ var myGame = new (function MyGame() {
     window.onunload = function() { deinitializeSDK(); };
 
     this.showMyProfile = function() {
-        if (scoreflex) {
-            scoreflex.Players.getCurrent().showProfile();
-        }
-
-        // Get page size
-        var w = window;
-        var d = document;
-        var e = d.documentElement;
-        var g = d.getElementsByTagName('body')[0];
-        var pageX = w.innerWidth || e.clientWidth || g.clientWidth;
-        var pageY = w.innerHeight|| e.clientHeight|| g.clientHeight;
-
         var el = document.getElementById('scoreflexWebClient_full');
-        el.style.left = (pageX/2 - 200) + 'px';
-        el.style.top  = '20px';
+        if (el) {
+            document.body.removeChild(el);
+        }
+        else {
+            if (scoreflex) {
+                scoreflex.Players.getCurrent().showProfile();
+            }
+
+            // Get page size
+            var w = window;
+            var d = document;
+            var e = d.documentElement;
+            var g = d.getElementsByTagName('body')[0];
+            var pageX = w.innerWidth || e.clientWidth || g.clientWidth;
+            var pageY = w.innerHeight|| e.clientHeight|| g.clientHeight;
+
+            el = document.getElementById('scoreflexWebClient_full');
+            el.style.left = (pageX/2 - 200) + 'px';
+            el.style.top  = '20px';
+        }
     };
 
     this.leaveRoom = function() {
