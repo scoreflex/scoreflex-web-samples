@@ -129,7 +129,10 @@ function Island(config) {
         miniMapCtx.clearRect (0, 0, miniMapCanvas.width,  miniMapCanvas.height);
         viewportCtx.clearRect(0, 0, viewportCanvas.width, viewportCanvas.height);
         playersCtx.clearRect (0, 0, playersCanvas.width,  playersCanvas.height);
-        scoresDiv.className = 'hidden';
+        scoresDiv.className      = 'hidden';
+        miniMapCanvas.className  = 'hidden';
+        viewportCanvas.className = 'hidden';
+        playersCanvas.className  = 'hidden';
     };
 
     function join(users) {
@@ -162,7 +165,7 @@ function Island(config) {
         var color = 'rgba('+rgb[0]+', '+rgb[1]+', '+rgb[2]+', 1)';
 
         if (!players[id]) {
-            addLogMessage(null, nickname+" enter the game");
+            addLogMessage(null, nickname+' enter the game');
             players.count++;
             players[id] = {position: null, score: {frags: 0, deaths: 0, hits: 0, shots: 0}};
         }
@@ -173,7 +176,7 @@ function Island(config) {
     };
 
     function removePlayer(id) {
-        addLogMessage(null, players[id].nickname+" left the game");
+        addLogMessage(null, players[id].nickname+' left the game');
         players.count--;
         delete players[id];
     };
@@ -196,20 +199,20 @@ function Island(config) {
         if (!players[id] || !players[killer])
             return;
 
-        var msg = players[id].nickname+" was killed by "+players[killer].nickname;
+        var msg = players[id].nickname+' was killed by '+players[killer].nickname;
         addLogMessage(null, msg);
         players[id].position = null;
         explosions[id] = {position: position, frame: 0};
 
         if (id == config.me && (Math.floor(Math.random() * 100) % 3) == 0) {
             var quote = get_random_entry(DEATH_QUOTES);
-            quote = quote.replace("[enemy]", players[killer].nickname);
+            quote = quote.replace('[enemy]', players[killer].nickname);
             config.send_cb(null, 101, {quote: quote});
             addLogMessage(id, quote);
         }
         else if (killer == config.me && (Math.floor(Math.random() * 100) % 3) == 0) {
             var quote = get_random_entry(KILL_QUOTES);
-            quote = quote.replace("[enemy]", players[id].nickname);
+            quote = quote.replace('[enemy]', players[id].nickname);
             config.send_cb(null, 101, {quote: quote});
             addLogMessage(killer, quote);
         }
@@ -625,10 +628,10 @@ function Island(config) {
                 var a2 = players[winner].score.hits/players[winner].score.shots;
                 winner = (a1 > a2) ? id : winner;
             }
-            playersCtx.fillText("Winner: "+players[winner].nickname, playersCanvas.width/2, playersCanvas.height/8);
+            playersCtx.fillText('Winner: '+players[winner].nickname, playersCanvas.width/2, playersCanvas.height/8);
         }
 
-        var msg = "Next match in "+N+" seconds..."
+        var msg = 'Next match in '+N+' seconds...'
         playersCtx.fillText(msg, playersCanvas.width/2, 7*playersCanvas.height/8);
 
 
@@ -642,7 +645,7 @@ function Island(config) {
             playersCtx.fillText(str, 10, playersCanvas.height - pos * 12);
         }
         else if (players[from]) {
-            var from = (from == config.me) ? "You: " : players[from].nickname+": ";
+            var from = (from == config.me) ? 'You: ' : players[from].nickname+': ';
             playersCtx.fillStyle = 'black';
             playersCtx.fillText(from, 10, playersCanvas.height - pos * 12);
 
@@ -661,6 +664,8 @@ function Island(config) {
         var pageX = w.innerWidth || e.clientWidth || g.clientWidth;
         var pageY = w.innerHeight|| e.clientHeight|| g.clientHeight;
 
+        pageY -= 15; // Reserve space for the login bar
+
         // Initialize canvas & DOM elements used by the game
         worldCanvas        = document.createElement('canvas');
         worldCanvas.width  = config.tile_size * config.map_width;
@@ -668,36 +673,39 @@ function Island(config) {
         worldCtx           = worldCanvas.getContext('2d');
 
         viewportTileSize = config.tile_size;
-        while ((viewportTileSize * config.viewport_x) > pageX &&
+        while ((viewportTileSize * config.viewport_x) > pageX ||
                (viewportTileSize * config.viewport_y) > pageY) {
             viewportTileSize--;
         }
 
         viewportCanvas            = document.getElementById('viewport');
+        viewportCanvas.className  = '';
         viewportCanvas.width      = viewportTileSize * config.viewport_x;
         viewportCanvas.height     = viewportTileSize * config.viewport_y;
-        viewportCanvas.style.top  = (pageY/2 - viewportCanvas.height/2) + 'px';
+        viewportCanvas.style.top  = (pageY/2 - viewportCanvas.height/2 + 15) + 'px';
         viewportCanvas.style.left = (pageX/2 - viewportCanvas.width/2) + 'px';
         viewportCtx               = viewportCanvas.getContext('2d');
 
         scoresDiv              = document.getElementById('scores');
         scoresDiv.style.width  = '600px';
         scoresDiv.style.height = '400px';
-        scoresDiv.style.top    = (pageY/2 - 200) + 'px';
+        scoresDiv.style.top    = (pageY/2 - 200 + 15) + 'px';
         scoresDiv.style.left   = (pageX/2 - 300) + 'px';
 
         miniMapTileSize          = viewportTileSize / 16;
         miniMapCanvas            = document.getElementById('minimap');
+        miniMapCanvas.className  = '';
         miniMapCanvas.width      = 3 * miniMapTileSize * config.viewport_x;
         miniMapCanvas.height     = 3 * miniMapTileSize * config.viewport_y;
-        miniMapCanvas.style.top  = (pageY/2 - viewportCanvas.height/2 + 10)  + 'px';
+        miniMapCanvas.style.top  = (pageY/2 - viewportCanvas.height/2 + 25)  + 'px';
         miniMapCanvas.style.left = (pageX/2 - viewportCanvas.width/2 + 10) + 'px';
         miniMapCtx               = miniMapCanvas.getContext('2d');
 
         playersCanvas            = document.getElementById('players');
+        playersCanvas.className  = '';
         playersCanvas.width      = viewportCanvas.width;
         playersCanvas.height     = viewportCanvas.height;
-        playersCanvas.style.top  = (pageY/2 - playersCanvas.height/2) + 'px';
+        playersCanvas.style.top  = (pageY/2 - playersCanvas.height/2 + 15) + 'px';
         playersCanvas.style.left = (pageX/2 - playersCanvas.width/2) + 'px';
         playersCtx               = playersCanvas.getContext('2d');
 

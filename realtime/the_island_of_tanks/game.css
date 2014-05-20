@@ -13,6 +13,18 @@ BODY {
   display: none;
 }
 
+.link {
+  cursor: pointer;
+}
+.link .selected {
+  display: inline;
+  color  : black;
+}
+.link:hover .selected {
+  display: inline;
+  color  : red;
+}
+
 @font-face
 {
   font-family: SilkscreenNormal;
@@ -70,10 +82,9 @@ BODY {
 }
 
 CANVAS {
-  border  : 1px solid #000000;
   left    : 5px;
   position: absolute;
-  top     : 5px;
+  top     : 20px;
 }
 
 #scores {
@@ -167,3 +178,30 @@ CANVAS {
   z-index: 2;
 }
 
+#login_bar {
+  margin-left: 5px;
+}
+
+#help {
+  position        : absolute;
+  top             : 30px;
+  left            : 20px;
+  opacity         :0.7;
+  font-family     : monospace;
+  font-size       : 13px;
+  background-color: #000000;
+  border          : 1px solid #744c19;
+  z-index         : 200;
+  padding-right   : 50px;
+  padding-top     : 10px;
+  padding-bottom  : 10px;
+}
+
+#scoreflexWebClient_full {
+  height:   600px;
+  left:     0;
+  position: absolute;
+  top:      0;
+  width:    400px;
+  z-index:  200;
+}

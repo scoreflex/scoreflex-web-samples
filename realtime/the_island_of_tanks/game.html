@@ -5,6 +5,17 @@
     <link href="game.css" type="text/css" rel="stylesheet">
   </head>
   <body>
+    <div id="login_bar">
+      <span id="help_button" class="link" onclick="myGame.showHelp();">
+        <span class="selected">&lt;</span>Help<span class="selected">&gt;</span>
+      </span>
+      <span id="show_my_profile" class="link" onclick="myGame.showMyProfile();">
+        <span class="selected">&lt;</span>My Profile<span class="selected">&gt;</span>
+      </span>
+      <span id="leave_room" class="link hidden" onclick="myGame.leaveRoom();">
+        <span class="selected">&lt;</span>Leave Room<span class="selected">&gt;</span>
+      </span>
+    </div>
     <div id="logo">
       <img src="img/tank_logo.png" />
       Powered by <a href="http://www.scoreflex.com">Scoreflex</a>
@@ -25,9 +36,18 @@
       </div>
     </div>
 
-    <canvas id="minimap"></canvas>
-    <canvas id="viewport"></canvas>
-    <canvas id="players"></canvas>
+    <div id="help" class="hidden">
+      <ul>
+        <li><b>Arrows</b>: Move your tanks</li>
+        <li><b>s or d</b>: Move your turret</li>
+        <li><b>CTRL</b>: Fire</li>
+        <li><b>TAB</b>: Show the score panel</li>
+      </ul>
+    </div>
+
+    <canvas id="minimap"  class="hidden"></canvas>
+    <canvas id="viewport" class="hidden"></canvas>
+    <canvas id="players"  class="hidden"></canvas>
 
     <script type="text/javascript" src="SDK/libs/CryptoJS/rollups/hmac-sha1.js"></script>
     <script type="text/javascript" src="SDK/libs/CryptoJS/components/enc-base64-min.js"></script>

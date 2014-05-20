@@ -26,40 +26,47 @@ var myGame = new (function MyGame() {
         var time = date.toLocaleTimeString();
         var ms   = date.getMilliseconds();
         if (ms < 10)
-            return ("["+time+ ".00"+ms+"]");
+            return ('['+time+ '.00'+ms+']');
         else if (ms < 100)
-            return ("["+time+ ".0"+ms+"]");
-        return ("["+time+ "."+ms+"]");
+            return ('['+time+ '.0'+ms+']');
+        return ('['+time+ '.'+ms+']');
     };
 
     // print log message, prefixed by the current time.
     var logInfo = function(msg) {
-        console.log("%c"+getTime()+" %c"+msg, "color:red;font-weight:bold", "");
+        console.log('%c'+getTime()+' %c'+msg, 'color:red;font-weight:bold', '');
     };
 
     // Show/hide messages & errors
     var hideMenu = function() {
-        document.getElementById("title").className = "hidden";
-        document.getElementById("logo").className  = "hidden";
-        document.getElementById("menu").className  = "hidden";
-        document.getElementById("msg").className   = "hidden";
-        document.getElementById("msg").innerHTML   = "";
+        document.getElementById('title').className = 'hidden';
+        document.getElementById('logo').className  = 'hidden';
+        document.getElementById('menu').className  = 'hidden';
+        document.getElementById('msg').className   = 'hidden';
+        document.getElementById('msg').innerHTML   = '';
     };
     var showMenu = function() {
-        document.getElementById("title").className = "";
-        document.getElementById("logo").className  = "";
-        document.getElementById("menu").className  = "";
-        document.getElementById("msg").className   = "hidden";
-        document.getElementById("msg").innerHTML   = "";
+        document.getElementById('title').className = '';
+        document.getElementById('logo').className  = '';
+        document.getElementById('menu').className  = '';
+        document.getElementById('msg').className   = 'hidden';
+        document.getElementById('msg').innerHTML   = '';
     };
     var showMsg = function(msg) {
-        document.getElementById("menu").className = "hidden";
-        document.getElementById("msg").className  = "";
-        document.getElementById("msg").innerHTML  = msg;
+        document.getElementById('menu').className = 'hidden';
+        document.getElementById('msg').className  = '';
+        document.getElementById('msg').innerHTML  = msg;
     };
     var showError = function(msg) {
         showMsg(msg);
-        document.getElementById("msg").className = "error";
+        document.getElementById('msg').className = 'error';
+    };
+
+    var hideWebview = function() {
+        var el = document.getElementById('scoreflexWebClient_full');
+        if (el) {
+            document.body.removeChild(el);
+        }
     };
 
     // Helper function to register a listener on a specified event target
@@ -68,7 +75,7 @@ var myGame = new (function MyGame() {
             element.addEventListener(eventType, handler, false);
         }
         else if(element.attachEvent) {
-            element.attachEvent( "on" + eventType, handler);
+            element.attachEvent( 'on' + eventType, handler);
         }
     };
 
@@ -79,11 +86,8 @@ var myGame = new (function MyGame() {
             deinitializeSDK();
         }
 
-        logInfo("Scoreflex SDK initializing...");
-        var el = document.getElementById("scoreflexWebClient_full");
-        if (el) {
-            document.body.removeChild(el);
-        }
+        logInfo('Scoreflex SDK initializing...');
+        hideWebview();
 
         setTimeout(function() {
             scoreflex = new Scoreflex(clientId, clientSecret, useSandbox);
@@ -92,16 +96,16 @@ var myGame = new (function MyGame() {
 
     // Deinitialize the scoreflex SDK
     var deinitializeSDK = function() {
-        logInfo("Scoreflex SDK deinitializing...");
+        logInfo('Scoreflex SDK deinitializing...');
         stopRealtimeSession();
         scoreflex.destroy();
         scoreflex = null;
-        logInfo("Scoreflex SDK deinitialized");
+        logInfo('Scoreflex SDK deinitialized');
     };
 
     // Retrieve the realtime session and initialize it
     var startRealtimeSession = function() {
-        logInfo("Scoreflex realtime session initializing...");
+        logInfo('Scoreflex realtime session initializing...');
         realtimeSession = scoreflex.getRealtimeSession();
         if (!realtimeSession.isInitialized()) {
             realtimeSession.initialize2(server, realtimeSessionInitializedListener);
@@ -113,7 +117,7 @@ var myGame = new (function MyGame() {
 
     // Destroy the realtime session, if needed
     var stopRealtimeSession = function() {
-        logInfo("Scoreflex realtime session deinitializing...");
+        logInfo('Scoreflex realtime session deinitializing...');
         if (realtimeSession) {
             if (realtimeSession.isConnected()) {
                 disconnectRealtimeSession();
@@ -129,7 +133,7 @@ var myGame = new (function MyGame() {
 
     var disconnectRealtimeSession = function() {
         realtimeSession.disconnect();
-        logInfo("Connection state: DISCONNECTED");
+        logInfo('Connection state: DISCONNECTED');
     };
 
     var loadRoomInfo = function(url, rooms) {
@@ -150,19 +154,19 @@ var myGame = new (function MyGame() {
                 el.className = 'disabled_item';
                 el.innerHTML = 'Create a new room (Server is full)';
             }
-            document.getElementById("menu").appendChild(el);
+            document.getElementById('menu').appendChild(el);
             showMenu();
         }
         else {
             var handlers = {
                 onload: function() {
                     if (!this.responseJSON) {
-                        showError("FATAL ERROR:<br/>failed to retrieve rooms info.");
+                        showError('FATAL ERROR:<br/>failed to retrieve rooms info.');
                         setTimeout(function() { loadMenu(); }, 2500);
                     }
                     else {
                         var room = this.responseJSON;
-                        var name = room.id.replace("_", " ");
+                        var name = room.id.replace(/_/g, ' ');
                         var el   = document.createElement('div');
                         el.id  = 'room_'+room.id;
                         if (room.players.length < room.config.maxPlayers) {
@@ -180,32 +184,32 @@ var myGame = new (function MyGame() {
                             el.className = 'disabled_item';
                             el.innerHTML = name+' (Room is full)';
                         }
-                        document.getElementById("menu").appendChild(el);
+                        document.getElementById('menu').appendChild(el);
                         rooms.splice(0, 1);
                         loadRoomInfo(url, rooms);
                     }
                 },
                 onerror: function() {
-                    showError("FATAL ERROR:<br/>failed to retrieve rooms info.");
+                    showError('FATAL ERROR:<br/>failed to retrieve rooms info.');
                     setTimeout(function() { loadMenu(); }, 2500);
                 }
             };
-            ajax.get("room.yaws", {url: url, room: rooms[0]}, handlers, true);
+            ajax.get('room.yaws', {url: url, room: rooms[0]}, handlers, true);
         }
     };
 
     var loadMenu = function() {
         clearTimeout(load_timer);
         load_timer = setTimeout(function() { loadMenu(); }, 10000);
-        showMsg("Loading...");
-        document.getElementById("menu").innerHTML = "";
+        showMsg('Loading...');
+        document.getElementById('menu').innerHTML = '';
 
         if (realtimeSession.isConnected()) {
-            var url = "http://" + server.host + ":" + server.port + "/games/" + clientId;
+            var url = 'http://' + server.host + ':' + server.port + '/games/' + clientId;
             var handlers = {
                 onload: function() {
                     if (!this.responseJSON) {
-                        showError("FATAL ERROR:<br/>failed to retrieve rooms info.");
+                        showError('FATAL ERROR:<br/>failed to retrieve rooms info.');
                         setTimeout(function() { loadMenu(); }, 2500);
                     }
                     else {
@@ -213,11 +217,11 @@ var myGame = new (function MyGame() {
                     }
                 },
                 onerror: function() {
-                    showError("FATAL ERROR:<br/>failed to retrieve rooms info.");
+                    showError('FATAL ERROR:<br/>failed to retrieve rooms info.');
                     setTimeout(function() { loadMenu(); }, 2500);
                 }
             };
-            ajax.get("rooms.yaws", {url: url}, handlers, true);
+            ajax.get('rooms.yaws', {url: url}, handlers, true);
         }
     };
 
@@ -229,14 +233,14 @@ var myGame = new (function MyGame() {
             .setTickTime(100)
             .setAutoStart(false)
             .setAutoStop(false)
-            .setJoinStrategy("anytime")
-            .setServerScript("game.lua");
+            .setJoinStrategy('anytime')
+            .setServerScript('game.lua');
 
         var properties = {seed          : +(new Date()),
                           match_duration: 300000};
 
-        showMsg("Loading...");
-        realtimeSession.createRoom(name.replace(" ", "_"), config, properties);
+        showMsg('Loading...');
+        realtimeSession.createRoom(name.replace(/ /g, '_'), config, properties);
     };
 
     var joinRoom = function(id) {
@@ -246,13 +250,13 @@ var myGame = new (function MyGame() {
     var startGame = function() {
         var room   = realtimeSession.getCurrentRoom();
         var config = {me      : scoreflex.Players.getCurrent().getId(),
-                      map_name: room.getId().replace("_", " "),
+                      map_name: room.getId().replace(/_/g, ' '),
                       send_cb : sendMessage};
 
         // Get the room's properties (excluding players info) and create the
         // island object
         room.getProperties().forEach(function(n, v) {
-            if (n.indexOf("player_") != 0)
+            if (n.indexOf('player_') != 0)
                 this[n] = v;
         }, config);
 
@@ -262,10 +266,10 @@ var myGame = new (function MyGame() {
         var participants = room.getParticipants();
         for (var i = 0; i < participants.length; ++i) {
             var id   = participants[i];
-            var info = room.getProperty("player_"+id);
+            var info = room.getProperty('player_'+id);
             if (info == null)
                 continue;
-            info = info.split("#");
+            info = info.split('#');
             var nickname = info[0];
             var hsv      = [+(info[1]), +(info[2]), +(info[3])];
             players[id]  = {nickname: nickname, hsv: hsv};
@@ -276,13 +280,15 @@ var myGame = new (function MyGame() {
         var hsv            = [Math.floor(360*Math.random()), Math.floor(100*Math.random()), 0];
         players[config.me] = {nickname: nickname, hsv: hsv};
 
-        realtimeSession.setRoomProperty("player_"+config.me, nickname + "#" + hsv[0] + "#" + hsv[1] + "#" + hsv[2]);
+        realtimeSession.setRoomProperty('player_'+config.me, nickname + '#' + hsv[0] + '#' + hsv[1] + '#' + hsv[2]);
 
         island.join(players);
         if (room.getMatchState() === Scoreflex.Realtime.MatchState.RUNNING) {
             island.start();
         }
 
+        document.getElementById('leave_room').className = 'link';
+        hideWebview();
         hideMenu();
     };
 
@@ -291,7 +297,9 @@ var myGame = new (function MyGame() {
             island.destroy();
             island = null;
         }
+        document.getElementById('leave_room').className = 'link hidden';
         showMenu();
+        loadMenu();
     };
 
     /**********************************************************************/
@@ -310,25 +318,25 @@ var myGame = new (function MyGame() {
             if (eventData.state === Scoreflex.SessionState.INIT_SUCCESS) {
                 // The Scoreflex SDK was successfully initialized. Now, start
                 // the realtime session.
-                logInfo("Scoreflex SDK initialized");
+                logInfo('Scoreflex SDK initialized');
                 startRealtimeSession();
             }
             else if (eventData.state === Scoreflex.SessionState.INIT_FAILED) {
-                logInfo("Scoreflex SDK initialization failed");
-                showError("FATAL ERROR:<br/>Scoreflex SDK initialization failed.");
+                logInfo('Scoreflex SDK initialization failed');
+                showError('FATAL ERROR:<br/>Scoreflex SDK initialization failed.');
             }
         }
 
         // Handle player events
         else if (eventData.name === 'player') {
-            logInfo(((eventData.anonymous === true) ? "Anonymous" : "Authenticated")
-                    +" player logged-in");
+            logInfo(((eventData.anonymous === true) ? 'Anonymous' : 'Authenticated')
+                    +' player logged-in');
             if (scoreflex.getSessionState() === Scoreflex.SessionState.INIT_SUCCESS) {
                 // The scoreflex SDK was already initialized, so this event was
                 // launched because the current player has changed. In this
                 // situation, we destroy the current realtime session and start
                 // a new one.
-                logInfo("Current player has changed. Renew the realtime session");
+                logInfo('Current player has changed. Renew the realtime session');
                 stopRealtimeSession();
                 startRealtimeSession();
             }
@@ -341,12 +349,12 @@ var myGame = new (function MyGame() {
         onInitialized: function() {
             // The realtime session was successfully initialized, so we print
             // some information about it.
-            logInfo("Scoreflex realtime session initialized\n"
-                    + "  * Server address: "+realtimeSession.getServerAddr()+"\n"
-                    + "  * Session options:\n"
-                    + "      - Auto reconnection flag: "+realtimeSession.getReconnectFlag()+"\n"
-                    + "      - Max retries:            "+realtimeSession.getMaxRetries()+"\n"
-                    + "      - Reconnection timeout:   "+realtimeSession.getReconnectTimeout()+" msecs");
+            logInfo('Scoreflex realtime session initialized\n'
+                    + '  * Server address: '+realtimeSession.getServerAddr()+'\n'
+                    + '  * Session options:\n'
+                    + '      - Auto reconnection flag: '+realtimeSession.getReconnectFlag()+'\n'
+                    + '      - Max retries:            '+realtimeSession.getMaxRetries()+'\n'
+                    + '      - Reconnection timeout:   '+realtimeSession.getReconnectTimeout()+' msecs');
 
             connectRealtimeSession();
         },
@@ -355,27 +363,27 @@ var myGame = new (function MyGame() {
             // The realtime session initialization failed
             switch (status) {
               case Scoreflex.Realtime.StatusCode.STATUS_NETWORK_ERROR:
-                logInfo("Scoreflex realtime session initialization failed\n"
-                        + "  (reason: Network error)");
+                logInfo('Scoreflex realtime session initialization failed\n'
+                        + '  (reason: Network error)');
                 break;
               case Scoreflex.Realtime.StatusCode.STATUS_PERMISSION_DENIED:
-                logInfo("Scoreflex realtime session initialization failed\n"
-                        + "  (reason: Permission denied)\n");
+                logInfo('Scoreflex realtime session initialization failed\n'
+                        + '  (reason: Permission denied)\n');
                 break;
               case Scoreflex.Realtime.StatusCode.STATUS_INTERNAL_ERROR:
-                logInfo("Scoreflex realtime session initialization failed\n"
-                        + "  (reason: Internal error)");
+                logInfo('Scoreflex realtime session initialization failed\n'
+                        + '  (reason: Internal error)');
                 break;
               default:
-                logInfo("Scoreflex realtime session initialization failed\n"
-                        + "  (reason: Unexpected error)");
+                logInfo('Scoreflex realtime session initialization failed\n'
+                        + '  (reason: Unexpected error)');
             }
-            showError("FATAL ERROR:<br/>Scoreflex realtime session initialization failed.");
+            showError('FATAL ERROR:<br/>Scoreflex realtime session initialization failed.');
             deinitializeSDK();
         },
 
         onDeInitialized: function() {
-            logInfo("Scoreflex realtime session deinitialized.\n");
+            logInfo('Scoreflex realtime session deinitialized.\n');
             realtimeSession = null;
         }
     };
@@ -386,62 +394,62 @@ var myGame = new (function MyGame() {
         onConnected: function(info) {
             // New connection was opened. Print some information about the
             // session
-            var sessInfo = {msg: ""};
+            var sessInfo = {msg: ''};
             realtimeSession.getSessionInfo().forEach(function(k,v,t) {
-                this.msg += "   * "+k+": "+v+"\n";
+                this.msg += '   * '+k+': '+v+'\n';
             }, sessInfo);
-            logInfo("Connection state: CONNECTED\n"+sessInfo.msg);
+            logInfo('Connection state: CONNECTED\n'+sessInfo.msg);
             loadMenu();
         },
         onConnectionFailed: function(status) {
-            logInfo("Connection state: DISCONNECTED\n"
-                    + "  (connection failed - error: "+status+")");
+            logInfo('Connection state: DISCONNECTED\n'
+                    + '  (connection failed - error: '+status+')');
             stopGame();
-            showError("FATAL ERROR:<br/>Realtime connection failed");
+            showError('FATAL ERROR:<br/>Realtime connection failed');
             deinitializeSDK();
         },
         onConnectionClosed: function(status) {
-            logInfo("Connection state: DISCONNECTED\n"
-                    + "  (connection closed - reason: "+status+")");
+            logInfo('Connection state: DISCONNECTED\n'
+                    + '  (connection closed - reason: '+status+')');
             stopGame();
-            showError("FATAL ERROR:<br/>Realtime connection closed");
+            showError('FATAL ERROR:<br/>Realtime connection closed');
             deinitializeSDK();
         },
         onReconnecting: function(status) {
-            logInfo("Connection state: RECONNECTING\n"
-                    + "  (reason: "+status+")");
+            logInfo('Connection state: RECONNECTING\n'
+                    + '  (reason: '+status+')');
         }
     };
 
     var roomListener = {
         onRoomCreated: function(status, room) {
             if (status === Scoreflex.Realtime.StatusCode.STATUS_SUCCESS) {
-                logInfo("Room created");
+                logInfo('Room created');
                 startGame();
             }
             else if (status === Scoreflex.Realtime.StatusCode.STATUS_ROOM_ALREADY_CREATED) {
-                logInfo("Room already exsists. try another name");
+                logInfo('Room already exsists. try another name');
                 createRoom();
             }
             else {
-                showError("FATAL ERROR:<br/>An error occured during<br/> room creation.");
+                showError('FATAL ERROR:<br/>An error occured during<br/> room creation.');
                 setTimeout(function() { loadMenu(); }, 2500);
             }
         },
 
         onRoomClosed: function(status, roomId) {
             stopGame();
-            showMsg("Room was closed");
-            deinitializeSDK();
+            showMsg('Room was closed');
+            setTimeout(function() { showMenu(); }, 1500);
         },
 
         onRoomJoined: function(status, room) {
             if (status === Scoreflex.Realtime.StatusCode.STATUS_SUCCESS) {
-                logInfo("Room "+room.getId()+" joined");
+                logInfo('Room '+room.getId()+' joined');
                 startGame();
             }
             else {
-                showError("FATAL ERROR:<br/>Failed to join the room ");
+                showError('FATAL ERROR:<br/>Failed to join the room ');
                 setTimeout(function() { loadMenu(); }, 2500);
             }
         },
@@ -449,8 +457,8 @@ var myGame = new (function MyGame() {
         onRoomLeft: function(status, roomId) {
             island.leave();
             stopGame();
-            showMsg("You left the room");
-            deinitializeSDK();
+            showMsg('You left the room');
+            setTimeout(function() { showMenu(); }, 1500);
         },
 
         onPeerJoined: function(room, peerId) {
@@ -474,11 +482,11 @@ var myGame = new (function MyGame() {
         },
 
         onRoomPropertyChanged: function(room, from, key) {
-            if (key == ("player_"+from)) {
+            if (key == ('player_'+from)) {
                 var info = room.getProperty(key);
                 if (info == null)
                     return;
-                info = info.split("#");
+                info = info.split('#');
                 var nickname = info[0];
                 var hsv      = [+(info[1]), +(info[2]), +(info[3])];
                 island.addPlayer(from, nickname, hsv);
@@ -501,7 +509,7 @@ var myGame = new (function MyGame() {
                 payload.forEach(function(key, value) {
                     var type     = (key.split('_'))[0];
                     var id     = (key.split('_'))[1];
-                    if (type == "player") {
+                    if (type == 'player') {
                         var info = value.split('#');
                         var position = {x         : +(info[0]),
                                         y         : +(info[1]),
@@ -510,33 +518,33 @@ var myGame = new (function MyGame() {
                                         shield    : +(info[4])};
                         this.setPlayerPosition(id, position);
                     }
-                    else if (type == "shell") {
+                    else if (type == 'shell') {
                         var info = value.split('#');
                         var position = {x  : +(info[0]),
                                         y  : +(info[1]),
                                         pos: +(info[2])};
                         this.setShell(id, position);
                     }
-                    else if (type == "explosion") {
+                    else if (type == 'explosion') {
                         var info = value.split('#');
                         var position = {x : +(info[0]),
                                         y : +(info[1])};
                         var killer = info[2];
                         this.setExplosion(id, killer, position);
                     }
-                    else if (type == "hit") {
+                    else if (type == 'hit') {
                         var info = value.split('#');
                         var position = {x : +(info[0]),
                                         y : +(info[1])};
                         this.setHit(id, position);
                     }
-                    else if (type == "missed") {
+                    else if (type == 'missed') {
                         var info = value.split('#');
                         var position = {x : +(info[0]),
                                         y : +(info[1])};
                         this.setMissed(id, position);
                     }
-                    else if (type == "score") {
+                    else if (type == 'score') {
                         var info = value.split('#');
                         score = {frags : +(info[0]),
                                  deaths: +(info[1]),
@@ -554,7 +562,7 @@ var myGame = new (function MyGame() {
                 payload.forEach(function(key, value) {
                     var type     = (key.split('_'))[0];
                     var id     = (key.split('_'))[1];
-                    if (type == "score") {
+                    if (type == 'score') {
                         var info = value.split('#');
                         score = {frags : +(info[0]),
                                  deaths: +(info[1]),
@@ -581,6 +589,35 @@ var myGame = new (function MyGame() {
     initializeSDK();
 
     window.onunload = function() { deinitializeSDK(); };
+
+    this.showMyProfile = function() {
+        if (scoreflex) {
+            scoreflex.Players.getCurrent().showProfile();
+        }
+
+        // Get page size
+        var w = window;
+        var d = document;
+        var e = d.documentElement;
+        var g = d.getElementsByTagName('body')[0];
+        var pageX = w.innerWidth || e.clientWidth || g.clientWidth;
+        var pageY = w.innerHeight|| e.clientHeight|| g.clientHeight;
+
+        var el = document.getElementById('scoreflexWebClient_full');
+        el.style.left = (pageX/2 - 200) + 'px';
+        el.style.top  = '20px';
+    };
+
+    this.leaveRoom = function() {
+        if (realtimeSession && realtimeSession.isConnected()) {
+            realtimeSession.leaveRoom();
+        }
+    };
+
+    this.showHelp = function() {
+        var el = document.getElementById('help');
+        el.className = (el.className == '') ? 'hidden' : '';
+    };
 
     // Export main objects for testing purpose
     this.scoreflex       = function() { return scoreflex; };
